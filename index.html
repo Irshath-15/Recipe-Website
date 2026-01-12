@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RecipeShare</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <h1>RecipeShare</h1>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="badge reveal-text">🍴 Community Recipes</span>
+
+    <h2 class="reveal-text delay-1">
+      Cook. Share. <br><span>Enjoy Every Bite</span>
+    </h2>
+
+    <p class="reveal-text delay-2">
+      Discover hand-picked recipes from passionate home chefs.
+      Click a dish to view the full recipe instantly.
+    </p>
+
+    <div class="hero-buttons reveal-text delay-3">
+      <a href="#recipes" class="btn primary">Explore Recipes</a>
+      <a href="#submit" class="btn secondary">Submit Recipe</a>
+    </div>
+  </div>
+
+  <div class="hero-image">
+    <img src="images/hero-food.jpg" alt="Food">
+  </div>
+</section>
+
+<!-- Recipes -->
+<section class="recipes" id="recipes">
+  <h2 class="section-title">Featured Recipes</h2>
+
+  <div class="recipe-grid">
+    <div class="recipe-card" onclick="showRecipe('pasta')">
+      <img src="images/pasta.jpg" alt="Spicy Pasta">
+      <h3>Spicy Pasta</h3>
+      <p>⏱ 30 mins • 🌶 Medium</p>
+    </div>
+
+    <div class="recipe-card" onclick="showRecipe('pizza')">
+      <img src="images/pizza.jpg" alt="Classic Pizza">
+      <h3>Classic Pizza</h3>
+      <p>⏱ 45 mins • 🍕 Easy</p>
+    </div>
+
+    <div class="recipe-card" onclick="showRecipe('salad')">
+      <img src="images/salad.jpg" alt="Healthy Salad">
+      <h3>Healthy Salad</h3>
+      <p>⏱ 15 mins • 🥗 Easy</p>
+    </div>
+  </div>
+</section>
+
+<!-- Recipe Detail -->
+<section class="recipe-detail" id="recipeDetail">
+  <div class="detail-box" id="recipeContent"></div>
+</section>
+
+<!-- Submit -->
+<section class="submit" id="submit">
+  <h2 class="section-title">Submit Your Recipe</h2>
+  <form class="recipe-form">
+    <input type="text" placeholder="Recipe Name" required>
+    <textarea placeholder="Ingredients" required></textarea>
+    <textarea placeholder="Steps" required></textarea>
+    <button type="submit">Submit</button>
+  </form>
+</section>
+
+<footer>
+  © 2026 RecipeShare
+</footer>
+
+<!-- Scripts -->
+<script>
+  /* Text Reveal */
+  const revealTexts = document.querySelectorAll(".reveal-text");
+
+  const textObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+        textObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  revealTexts.forEach(el => textObserver.observe(el));
+
+  /* Recipe Data */
+  const recipes = {
+    pasta: `
+      <h2>Spicy Pasta</h2>
+      <h4>Ingredients</h4>
+      <ul>
+        <li>Pasta</li><li>Garlic</li><li>Chili flakes</li>
+        <li>Olive oil</li><li>Tomato sauce</li>
+      </ul>
+      <h4>Steps</h4>
+      <ol>
+        <li>Boil pasta</li>
+        <li>Sauté garlic</li>
+        <li>Add chili & sauce</li>
+        <li>Mix and serve</li>
+      </ol>
+    `,
+    pizza: `
+      <h2>Classic Pizza</h2>
+      <h4>Ingredients</h4>
+      <ul>
+        <li>Pizza base</li><li>Tomato sauce</li>
+        <li>Mozzarella</li><li>Olives</li>
+      </ul>
+      <h4>Steps</h4>
+      <ol>
+        <li>Preheat oven to 220°C</li>
+        <li>Add sauce & toppings</li>
+        <li>Bake 15 minutes</li>
+        <li>Serve hot</li>
+      </ol>
+    `,
+    salad: `
+      <h2>Healthy Salad</h2>
+      <h4>Ingredients</h4>
+      <ul>
+        <li>Lettuce</li><li>Cucumber</li>
+        <li>Tomatoes</li><li>Lemon</li>
+      </ul>
+      <h4>Steps</h4>
+      <ol>
+        <li>Chop veggies</li>
+        <li>Add dressing</li>
+        <li>Toss well</li>
+        <li>Serve fresh</li>
+      </ol>
+    `
+  };
+
+  function showRecipe(type) {
+    const detail = document.getElementById("recipeDetail");
+    const content = document.getElementById("recipeContent");
+
+    content.innerHTML = recipes[type];
+    detail.classList.add("active");
+    detail.scrollIntoView({ behavior: "smooth" });
+  }
+</script>
+
+</body>
+</html>
